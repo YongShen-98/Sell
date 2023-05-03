@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.76c7cce5.css",
+    "main.js": "/static/js/main.cf0ec6ce.js",
+    "static/media/ChangJiang.png": "/static/media/ChangJiang.5733e76760485a0d4e76.png",
+    "index.html": "/index.html",
+    "main.76c7cce5.css.map": "/static/css/main.76c7cce5.css.map",
+    "main.cf0ec6ce.js.map": "/static/js/main.cf0ec6ce.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76c7cce5.css",
+    "static/js/main.cf0ec6ce.js"
+  ]
+}
