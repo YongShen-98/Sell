@@ -1,4 +1,4 @@
-export const english_address = '0xE60304DD1E7c7E094577Ecc9d5Fc1c0013Cc14fa'
+export const english_address = '0x394C010bD79A3A8f32dFCD1A47Ce1A54E9a46530'
 export const english_abi =  [
   {
     "inputs": [
@@ -60,6 +60,19 @@ export const english_abi =  [
   },
   {
     "inputs": [],
+    "name": "currentTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "end",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -89,6 +102,13 @@ export const english_abi =  [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

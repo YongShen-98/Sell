@@ -32,14 +32,14 @@ function App() {
 
     const price = await contract.getPrice()
 
-    alert('The price of ChangJiang NFT is : ' + price / 1000000000000000000 + ' RVT')
+    alert('The price of CKGSB NFT is : ' + price / 1000000000000000000 + ' RVT')
   }
 
   const buySell = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(sell_address, sell_abi, signer)
-    await contract.buy('300000000000000000000')
+    await contract.buy()
   }
 
   const startdutch = async () => {
@@ -58,23 +58,21 @@ function App() {
     alert(resp / 1000000000000000000)
   }
 
-  const getAddressNFTDutch = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
-
-    const resp = await contract.nft()
-    alert(resp)
+  const getAddressNFT = async () => {
+    alert("0x0285c4727C5903ccfbc42349AFd2Ce74B68FA98e")
   }
 
-  const getIdNFTDutch = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
-
-    const resp = await contract.nftId()
-    alert(resp)
+  const getIdsell = async () => {
+    alert(0)
   }
+  const getIddutch = async () => {
+    alert(1)
+  }
+  const getIdenglish = async () => {
+    alert(2)
+  }
+  
+
   const ifStart = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
@@ -83,26 +81,26 @@ function App() {
     const resp = await contract.startAt()
 
     if (resp == 0) {
-      alert("The dutch does not start !")
+      alert("The dutch has not started !")
     } else {
       alert("The dutch starts !")
     }
   }
 
-  const gapBetweenStartEnd = async () => {
+  const Isend = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
-
     await contract.getCurrentTime()
-
     const resp = await contract.expiresAt()
     const resp1 = await contract.currentTime()
 
-    if (resp1 > resp) {
-      alert("The dutch is ended !")
+    if (resp == 0) {
+      alert("The dutch has not started !")
+    } else if (resp1 < resp) {
+      alert(resp-resp1)
     } else {
-      alert("The last time is :" + resp - resp1)
+      alert("The dutch has ended !")
     }
   }
 
@@ -164,20 +162,23 @@ function App() {
     alert(resp)
   }
 
-  const ifsucceed = async () => {
+  const getcurrentTime = async () => {
+    //const provider = new ethers.providers.Web3Provider(window.ethereum)
+    //const signer = provider.getSigner()
+    //const contract = new ethers.Contract(english_address, english_abi, signer)
+    //await contract.getCurrentTime()
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(english_address, english_abi, signer)
-
-    const resp = await contract.result()
-
-    alert(resp)
+    const resp1 = await contract.endAt()
+    var timestamp = Date.parse(new Date())
+    alert(resp1-timestamp/1000)
   }
-  
 
   return (
     <div>
       <Navbar>
+      <Button color="blue" appearance="primary" style={{ marginLeft: 500 }} onClick={getAddressNFT}><h2>The address of NFT</h2></Button>
         <Nav pullRight>
           <Nav.Item><Button color="violet" appearance="primary" id="connectbutton" onClick={connectWallet}>Connect Button</Button></Nav.Item>
         </Nav>
@@ -191,17 +192,15 @@ function App() {
         </Sidebar>
         <Container>
           <Header><div>
-            <h1>Simple-Sell
-              <Button color="blue" appearance="primary" style={{ marginLeft: 500 }} onClick={getAddressNFTDutch}><h2>The address of NFT</h2></Button>
-              <Button color="blue" appearance="primary" style={{ marginLeft: 10 }} onClick={getIdNFTDutch}><h2>The id of NFT</h2></Button>
-            </h1>
+            <h1>Simple-Sell</h1>
           </div>
           </Header>
           <Content>
             <ButtonToolbar>
-              <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
+            <Button color="blue" appearance="primary" style={{ marginLeft: 10 }} onClick={getIdsell}><h2>The id of NFT</h2></Button>
+              <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button color="blue" appearance="primary" onClick={getPrice}><h2>Get Price</h2></Button>
-              <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
+              <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button color="green" appearance="primary" onClick={buySell}><h2>Buy it !</h2></Button>
             </ButtonToolbar></Content>
           <Divider />
@@ -211,12 +210,13 @@ function App() {
           </Header>
           <Content>
             <ButtonToolbar style={style3}>
+            <Button color="blue" appearance="primary" onClick={getIddutch}><h2>The id of NFT</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button color="blue" appearance="primary" onClick={ifStart}><h2>Start ?</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button color="blue" appearance="primary" onClick={getPriceDutch}><h2>Get NFT Price</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
-              <Button color="blue" appearance="primary" onClick={gapBetweenStartEnd}><h2>How long until the auction ends ?</h2></Button>
+              <Button color="blue" appearance="primary" onClick={Isend}><h2>End ?</h2></Button>
               <Button color="green" appearance="primary" style={{ marginLeft: 1000 }} onClick={buyDutch}><h2>Buy it !</h2></Button>
             </ButtonToolbar>
           </Content>
@@ -229,13 +229,14 @@ function App() {
           </Header>
           <Content>
             <ButtonToolbar style={{ padding: 20 }}>
+            <Button color="blue" appearance="primary" onClick={getIdenglish}><h2>The id of NFT</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button appearance="primary" onClick={Isstart}><h2>Start ?</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button appearance="primary" onClick={highestBidder}><h2>highestBidder</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button appearance="primary" onClick={highestBid}><h2>highestBid</h2></Button>
-              <Button appearance="primary" onClick={ifsucceed} style={{marginLeft: 50}}><h2> Succeed ? </h2></Button>
+              <Button appearance="primary" onClick={getcurrentTime} style={{marginLeft: 50}}><h2> currentTime </h2></Button>
              </ButtonToolbar>
             <Grid fluid>
               <Row gutter={16}>
