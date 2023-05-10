@@ -54,8 +54,13 @@ function App() {
     const signer = provider.getSigner()
     const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
 
-    const resp = await contract.getPrice()
-    alert(resp / 1000000000000000000)
+    const resp0 = await contract.startAt()
+    if (resp0 == 0) {
+      alert("You can not get the price !")
+    } else {
+      const resp = await contract.getPrice()
+      alert("The price is " + resp / 1000000000000000000 + " RVT")
+    }
   }
 
   const getAddressNFT = async () => {
@@ -71,7 +76,7 @@ function App() {
   const getIdenglish = async () => {
     alert(2)
   }
-  
+
 
   const ifStart = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -83,7 +88,7 @@ function App() {
     if (resp == 0) {
       alert("The dutch has not started !")
     } else {
-      alert("The dutch starts !")
+      alert("The dutch has started !")
     }
   }
 
@@ -91,16 +96,15 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
-    await contract.getCurrentTime()
+    var timestamp = Date.parse(new Date())
+    
     const resp = await contract.expiresAt()
-    const resp1 = await contract.currentTime()
-
-    if (resp == 0) {
-      alert("The dutch has not started !")
-    } else if (resp1 < resp) {
-      alert(resp-resp1)
-    } else {
+    if (resp < timestamp / 1000) {
       alert("The dutch has ended !")
+    } else if (resp == 0) {
+      alert("The dutch has not started !")
+    } else {
+      alert(resp - timestamp / 1000)
     }
   }
 
@@ -108,7 +112,12 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
-    await contract.buy()
+    const resp0 = await contract.startAt()
+    if (resp0 == 0) {
+      alert("You can not bid it !")
+    } else {
+      await contract.buy()
+    }
   }
 
   const startenglish = async () => {
@@ -151,7 +160,7 @@ function App() {
 
     const resp = await contract.highestBid()
 
-    alert(resp / 10**18)
+    alert(resp / 10 ** 18)
   }
 
   const Isstart = async () => {
@@ -163,22 +172,25 @@ function App() {
   }
 
   const getcurrentTime = async () => {
-    //const provider = new ethers.providers.Web3Provider(window.ethereum)
-    //const signer = provider.getSigner()
-    //const contract = new ethers.Contract(english_address, english_abi, signer)
-    //await contract.getCurrentTime()
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(english_address, english_abi, signer)
     const resp1 = await contract.endAt()
     var timestamp = Date.parse(new Date())
-    alert(resp1-timestamp/1000)
+
+    if (resp1 < timestamp / 1000) {
+      alert("It has ended !")
+    } else if (resp1 == 0) {
+      alert("It has not started !")
+    } else {
+      alert(resp1 - timestamp / 1000)
+    }
   }
 
   return (
     <div>
       <Navbar>
-      <Button color="blue" appearance="primary" style={{ marginLeft: 500 }} onClick={getAddressNFT}><h2>The address of NFT</h2></Button>
+        <Button color="blue" appearance="primary" style={{ marginLeft: 500 }} onClick={getAddressNFT}><h2>The address of NFT</h2></Button>
         <Nav pullRight>
           <Nav.Item><Button color="violet" appearance="primary" id="connectbutton" onClick={connectWallet}>Connect Button</Button></Nav.Item>
         </Nav>
@@ -197,7 +209,7 @@ function App() {
           </Header>
           <Content>
             <ButtonToolbar>
-            <Button color="blue" appearance="primary" style={{ marginLeft: 10 }} onClick={getIdsell}><h2>The id of NFT</h2></Button>
+              <Button color="blue" appearance="primary" style={{ marginLeft: 10 }} onClick={getIdsell}><h2>The id of NFT</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button color="blue" appearance="primary" onClick={getPrice}><h2>Get Price</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
@@ -210,7 +222,7 @@ function App() {
           </Header>
           <Content>
             <ButtonToolbar style={style3}>
-            <Button color="blue" appearance="primary" onClick={getIddutch}><h2>The id of NFT</h2></Button>
+              <Button color="blue" appearance="primary" onClick={getIddutch}><h2>The id of NFT</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button color="blue" appearance="primary" onClick={ifStart}><h2>Start ?</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
@@ -229,15 +241,15 @@ function App() {
           </Header>
           <Content>
             <ButtonToolbar style={{ padding: 20 }}>
-            <Button color="blue" appearance="primary" onClick={getIdenglish}><h2>The id of NFT</h2></Button>
+              <Button color="blue" appearance="primary" onClick={getIdenglish}><h2>The id of NFT</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button appearance="primary" onClick={Isstart}><h2>Start ?</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button appearance="primary" onClick={highestBidder}><h2>highestBidder</h2></Button>
               <h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2><h2></h2>
               <Button appearance="primary" onClick={highestBid}><h2>highestBid</h2></Button>
-              <Button appearance="primary" onClick={getcurrentTime} style={{marginLeft: 50}}><h2> currentTime </h2></Button>
-             </ButtonToolbar>
+              <Button appearance="primary" onClick={getcurrentTime} style={{ marginLeft: 50 }}><h2> End? </h2></Button>
+            </ButtonToolbar>
             <Grid fluid>
               <Row gutter={16}>
                 <Col xs={4}>

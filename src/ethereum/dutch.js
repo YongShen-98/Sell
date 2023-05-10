@@ -1,4 +1,4 @@
-export const dutch_address = '0x9467FAfB00648bD6C386bD80Cd7Dc35e8789f2FC'
+export const dutch_address = '0x8dfb817545c5D16F091D17f9DC10cBf580E8E6f3'
 export const dutch_abi = [
   {
     "inputs": [
@@ -30,19 +30,6 @@ export const dutch_abi = [
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
-  },
-  {
-    "inputs": [],
-    "name": "Isend",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
   },
   {
     "inputs": [],

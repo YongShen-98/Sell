@@ -1,4 +1,4 @@
-export const english_address = '0x394C010bD79A3A8f32dFCD1A47Ce1A54E9a46530'
+export const english_address = '0x96a67d7e3D41C376671Ef0Ace107646a21B2adA6'
 export const english_abi =  [
   {
     "inputs": [
