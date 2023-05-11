@@ -1,4 +1,4 @@
-export const english_address = '0x96a67d7e3D41C376671Ef0Ace107646a21B2adA6'
+export const english_address = '0xDFadE6a443E00197f3a9274c1C4C8ce75aBB9c53'
 export const english_abi =  [
   {
     "inputs": [
@@ -75,7 +75,7 @@ export const english_abi =  [
     "inputs": [],
     "name": "end",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -181,7 +181,7 @@ export const english_abi =  [
     "name": "seller",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "",
         "type": "address"
       }
@@ -217,6 +217,19 @@ export const english_abi =  [
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "startingBid",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

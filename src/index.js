@@ -58,8 +58,11 @@ function App() {
     if (resp0 == 0) {
       alert("You can not get the price !")
     } else {
-      const resp = await contract.getPrice()
-      alert("The price is " + resp / 1000000000000000000 + " RVT")
+      const startPrice = await contract.startingPrice()
+      const startTime = await contract.startAt()
+      const discountRate = await contract.discountRate()
+      const price = startPrice - 10 * discountRate * (Date.parse(new Date())/1000 - startTime)
+      alert("The price is " + price / 1000000000000000000 + " RVT")
     }
   }
 
@@ -86,9 +89,9 @@ function App() {
     const resp = await contract.startAt()
 
     if (resp == 0) {
-      alert("The dutch has not started !")
+      alert("It has not started !")
     } else {
-      alert("The dutch has started !")
+      alert("It has started !")
     }
   }
 
@@ -97,12 +100,11 @@ function App() {
     const signer = provider.getSigner()
     const contract = new ethers.Contract(dutch_address, dutch_abi, signer)
     var timestamp = Date.parse(new Date())
-    
+
     const resp = await contract.expiresAt()
-    if (resp < timestamp / 1000) {
-      alert("The dutch has ended !")
-    } else if (resp == 0) {
-      alert("The dutch has not started !")
+    
+    if (resp == 0) {
+      alert("It has ended and the new Dutch-Auction has not started !")
     } else {
       alert(resp - timestamp / 1000)
     }
@@ -168,7 +170,11 @@ function App() {
     const signer = provider.getSigner()
     const contract = new ethers.Contract(english_address, english_abi, signer)
     const resp = await contract.started()
-    alert(resp)
+    if (resp == false) {
+      alert("It has not started !")
+    } else {
+      alert("It has started !")
+    }
   }
 
   const getcurrentTime = async () => {
@@ -178,19 +184,41 @@ function App() {
     const resp1 = await contract.endAt()
     var timestamp = Date.parse(new Date())
 
-    if (resp1 < timestamp / 1000) {
-      alert("It has ended !")
-    } else if (resp1 == 0) {
+    if (resp1 == 0) {
       alert("It has not started !")
-    } else {
+    } else if (resp1 > timestamp / 1000) {
       alert(resp1 - timestamp / 1000)
+    } else {
+      alert("It has ended !")
     }
+  }
+
+  const goto = async () => {
+    window.location.href="https://yongshen-98.github.io/Token-ERC-20/";
+  }
+
+  const selladdress = async () => {
+    alert("the address of Simple-Sell is 0xcC85CCCc205eD7B101f2Cdc6dD4aa40FfE7A97F1")
+  }
+
+  const dutchaddress = async () => {
+    alert("the address of Dutch-Auction is 0xaA21eF9F36cf7B50d0Fc1e05A038D38263296375")
+  }
+
+  const Englishaddress = async () => {
+    alert("the address of English-Auction is 0xDFadE6a443E00197f3a9274c1C4C8ce75aBB9c53")
   }
 
   return (
     <div>
       <Navbar>
-        <Button color="blue" appearance="primary" style={{ marginLeft: 500 }} onClick={getAddressNFT}><h2>The address of NFT</h2></Button>
+      <Nav>
+        <Nav. Item onClick={goto}>https://yongshen-98.github.io/Token-ERC-20/</Nav. Item>
+        <Nav. Item onClick={selladdress}>Simple-Sell</Nav. Item>
+        <Nav. Item onClick={dutchaddress}>Dutch-Auction</Nav. Item>
+        <Nav. Item onClick={Englishaddress}>English-Auction</Nav. Item>
+      </Nav>
+        <Button color="blue" appearance="primary" style={{ marginLeft: 100 }} onClick={getAddressNFT}><h3>The address of NFT</h3></Button>
         <Nav pullRight>
           <Nav.Item><Button color="violet" appearance="primary" id="connectbutton" onClick={connectWallet}>Connect Button</Button></Nav.Item>
         </Nav>
@@ -253,7 +281,7 @@ function App() {
             <Grid fluid>
               <Row gutter={16}>
                 <Col xs={4}>
-                  <div> <Input id="bidnumber" defaultValue="1000000000000000000" size="lg" style={{ width: 300, height: 50, marginLeft: 500 }}></Input></div>
+                  <div> <Input id="bidnumber" defaultValue="1000000000000000000" size="lg" style={{ width: 200, height: 50, marginLeft: 550 }}></Input></div>
                 </Col>
                 <Col xs={4}>
                   <div className="show-col"><Button color="green" appearance="primary" onClick={bid} style={{ width: 150, marginLeft: 550 }}  ><h2>Bid it</h2></Button></div>
